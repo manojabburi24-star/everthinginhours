@@ -1,0 +1,95 @@
+@import "@fontsource/montserrat/700.css";
+@import "@fontsource/montserrat/800.css";
+@import "@fontsource/montserrat/800-italic.css";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "tailwindcss";
+
+/* Brand palette only. Default Tailwind colors are removed so nothing off-brand can sneak in. */
+@theme {
+  --color-*: initial;
+  --color-coral: #e94b4b;
+  --color-cornflower: #5b7cfa;
+  --color-butter: #ffe7a3;
+  --color-butter-50: #fff8e1;
+  --color-ink: #1a1a1a;
+  --color-white: #ffffff;
+
+  --font-display: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-soft: 0 24px 60px -24px rgb(26 26 26 / 0.28);
+
+  --animate-marquee: marquee 32s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-14px) rotate(2deg); }
+  }
+}
+
+@utility container-eih {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 1400px;
+  padding-inline: 1rem;
+  @media (width >= 40rem) { padding-inline: 1.5rem; }
+  @media (width >= 64rem) { padding-inline: 2.5rem; }
+}
+
+/* Fluid type scale (RULES.md > Typography) */
+@utility text-display {
+  font-size: clamp(2.6rem, 6.8vw, 7rem);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+@utility text-h2 {
+  font-size: clamp(2.25rem, 5.5vw, 4.75rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+@utility text-h3 {
+  font-size: clamp(1.25rem, 2vw, 1.625rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+    overflow-x: clip;
+  }
+  h1, h2, h3 {
+    @apply font-display font-extrabold;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-cornflower);
+    outline-offset: 4px;
+    border-radius: 6px;
+  }
+  ::selection {
+    background: var(--color-butter);
+    color: var(--color-ink);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
